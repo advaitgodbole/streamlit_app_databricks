@@ -12,7 +12,9 @@ import pandas as pd
 import streamlit as st
 import os
 
-CLUSTER_ID = "0601-182128-dcbte59m"
+CLUSTER_ID = os.getenv(
+    "DATABRICKS_CLUSTER_ID"
+)
 
 # Establish Databricks connection
 @st.cache_resource
