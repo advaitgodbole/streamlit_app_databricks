@@ -30,37 +30,7 @@ def fetch_data_as_pandas_df_using_dbconnect(query):
     client = get_databricks_client()
     client_config = client.config
     spark = SparkSession.builder.sdkConfig(client_config).getOrCreate()
-    # context = client.command_execution.create(
-    #     cluster_id=CLUSTER_ID,
-    #     language=compute.Language.PYTHON
-    # ).result()
-
-    # text_results = client.command_execution.execute(
-    #     cluster_id=CLUSTER_ID,
-    #     context_id=context.id,
-    #     language=compute.Language.PYTHON,
-    #     command=query
-    # ).result()
     
-    # # Poll the query status until it is complete
-    # while True:
-    #     status = client.statement_execution.get_status(
-    #         statement_id=query_result.statement_id
-    #     ).status
-        
-    #     if status == QueryStatus.SUCCEEDED or status == QueryStatus.FAILED:
-    #         break
-
-    # if status == QueryStatus.FAILED:
-    #     raise Exception("Query failed to execute")
-
-    # # Fetch the result
-    # result = client.statement_execution.get_result(
-    #     statement_id=query_result.statement_id
-    # )
-    # data = pd.DataFrame(
-    #     result.data, columns=[col.name for col in result.columns]
-    # )
     df = spark.read.table(
         "samples.nyctaxi.trips"
     )
