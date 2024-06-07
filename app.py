@@ -30,7 +30,7 @@ def fetch_data_as_pandas_df_using_dbconnect(query):
     client = get_databricks_client()
     client_config = client.config
     spark = SparkSession.builder.sdkConfig(client_config).getOrCreate()
-    
+
     df = spark.read.table(
         "samples.nyctaxi.trips"
     )
@@ -64,9 +64,9 @@ def fetch_data_as_pandas_df_using_dbconnect(query):
 # Streamlit app
 st.title('Simple Databricks Streamlit App')
 
-query = st.text_area("Enter a value of your new column here")
+query = st.text_area("Enter any value that you want to fill-in as a new column here")
 
-if st.button("Run Query"):
+if st.button("Create New Column"):
     if query.strip() != "":
         try:
             data = fetch_data_as_pandas_df_using_dbconnect(query)
@@ -74,7 +74,7 @@ if st.button("Run Query"):
         except Exception as e:
             st.error(f"An error occurred: {e}")
     else:
-        st.warning("Please enter a valid SQL query.")
+        st.warning("Please check your input.")
 
 st.write(
     "This app connects to a Databricks cluster, executes a query, and displays the results in a dataframe."
